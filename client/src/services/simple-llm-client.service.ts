@@ -17,7 +17,7 @@ export class SimpleLlmClientService {
     return new Observable(observer => {
       const request = new GenerateContentRequest();
       request.setPrompt(prompt);
-      request.setModel('dolphin-llama3')
+      request.setModel('dolphin-llama3');
 
       const stream = this.client.generateContent(request, {});
       stream.on('data', (response: GenerateContentResponse) => {

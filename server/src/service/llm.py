@@ -1,6 +1,5 @@
 from concurrent import futures
 from protobuf import llm_pb2, llm_pb2_grpc
-import time
 import grpc
 from ollama import generate
 
@@ -8,16 +7,10 @@ from ollama import generate
 # TODO: function execution
 class LlmService(llm_pb2_grpc.LlmServiceServicer):
     def GenerateContent(self, request, context):
-        try:
-            for part in generate(model=request.model, prompt=request.prompt, stream=True):
-                print(part['response'])
-                if not context.is_active():
-                    return
-                yield llm_pb2.GenerateContentResponse(content=part['response'])
-        except Exception as e:
-            print(f"Error in GenerateContent: {e}")
-            context.set_details(str(e))
-            context.set_code(grpc.StatusCode.INTERNAL)
+        for part in generate(model=request.model, prompt=request.prompt, stream=True):
+            if not context.is_active():
+                return
+            yield llm_pb2.GenerateContentResponse(content=part['response'])
 
     def SummarizeText(self, request, context):
         # TODO: add prompt to summarizer

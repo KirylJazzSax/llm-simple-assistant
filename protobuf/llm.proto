@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package llm;
+
+service LlmService {
+  rpc GenerateContent (GenerateContentRequest) returns (stream GenerateContentResponse);
+  rpc SummarizeText (SummarizeTextRequest) returns (stream SummarizeTextResponse);
+}
+
+message GenerateContentRequest {
+  string prompt = 1;
+  string model = 2;
+}
+
+message GenerateContentResponse {
+  string content = 1;
+}
+
+message SummarizeTextRequest {
+  string text = 1;
+  string model = 2;
+}
+
+message SummarizeTextResponse {
+  string summary = 1;
+}

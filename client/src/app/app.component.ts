@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import {SimpleLlmClientService} from "../services/simple-llm-client.service";
-import {FormsModule, NgForm} from "@angular/forms";
-import {CommonModule} from "@angular/common";
+import {NgForm} from "@angular/forms";
+import {FormModule} from "../components/form/form.module";
+import {PromptType} from "../types/PromptType";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   imports: [
-    FormsModule,
-    CommonModule,
+    FormModule,
+    NgIf,
   ],
   styleUrl: './app.component.scss'
 })
@@ -18,9 +20,9 @@ export class AppComponent {
 
   constructor(private llmClient: SimpleLlmClientService) {}
 
-  onSubmit(f: NgForm) {
+  onSubmit(f: PromptType) {
     this.responses = [];
-    this.llmClient.generateContent(f.value.prompt).subscribe(
+    this.llmClient.generateContent(f.prompt).subscribe(
       {
         next: response => this.responses.push(response),
         error: err => console.log(err),

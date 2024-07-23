@@ -1,0 +1,20 @@
+<div class="container">
+  <h2>Form</h2>
+  <form (ngSubmit)="onSubmit()" [formGroup]="promptForm" novalidate>
+    <div class="form-group">
+      <label for="model">Model</label>
+      <select name="model" id="model" formControlName="model">
+        <option *ngFor="let m of models" [ngValue]="m">{{ m }}</option>
+      </select>
+      <label for="prompt">Prompt:</label>
+      <textarea
+        formControlName="prompt"
+        id="prompt"
+        name="prompt"
+        class="form-control"
+        rows="4"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

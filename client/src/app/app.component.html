@@ -1,21 +1,7 @@
-<div class="container">
-  <h2>Form</h2>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-    <div class="form-group">
-      <label for="prompt">Prompt:</label>
-      <textarea
-        id="prompt"
-        name="prompt"
-        ngModel
-        #prompt
-        class="form-control"
-        rows="4"
-      ></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+<main>
+  <prompt-form (submit)="onSubmit($event)"></prompt-form>
   <div *ngIf="responses.length">
     <h3>Responses</h3>
     <div>{{ responses.join('') }}</div>
   </div>
-</div>
+</main>
